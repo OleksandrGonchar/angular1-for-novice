@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-controller="Todo as $ctrl">
+<head>
+	<meta charset="utf-8">
+	<title>{{::$ctrl.todo.user}}'s TO DO List</title>
+	<link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="vendor/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/ng-cloak.css" rel="stylesheet">
+</head>
+<body ng-cloak>
+	<div class="container">
+		<div class="page-header">
+			<h1>
+				<img class="photo" ng-src="{{$ctrl.todo.userPhoto}}">
+				<!--One time binding-->
+				<span ng-bind="$ctrl.todo.user"></span>'s To Do List
+				<span class="label label-default"
+					  ng-class="$ctrl.warningLevel($ctrl.todo.items)"
+					  ng-bind="$ctrl.incompliteCount($ctrl.todo.items)"
+					  ng-hide="$ctrl.incompliteCount($ctrl.todo.items) == 0"></span>
+			</h1>
+		</div>
+		<div class="panel">
+			<form novalidate name="newTask">
+				<div class="form-group">
+					<label for="action">Action:</label>
+					<div class="input-group">
+						<input id="action" name="action"
+							   class="form-control"
+							   ng-model="$ctrl.newItem.action"/>
+						<span class="input-group-btn">
+							<button class="btn btn-primary"
+									ng-disabled="!$ctrl.newItem.action"
+							ng-click="$ctrl.addNewItem($ctrl.todo.items, $ctrl.newItem)"
+							>Add</button>
+						</span>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> To Do List
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Description</th>
+							<th>Done</th>
+							<th class="text-right">Commands</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in $ctrl.todo.items | checkedItems: $ctrl.showComlete track by $index">
+							<td>{{item.action}}</td>
+							<td><input type="checkbox" ng-model="item.done"></td>
+							<td>{{item.done? 'Yes': 'No'}}</td>
+							<td class="text-right">
+								<button
+										type="button"
+										class="btn btn-primary">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"
+											  title="Edit"></span>
+								</button>
+								<button
+										type="button"
+										class="btn btn-danger">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"
+											  title="Delete"></span>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<label>
+					<input type="checkbox" ng-model="$ctrl.showComlete">
+					Show complete
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<script src="vendor/angular/angular.min.js"></script>
+	<script src="app.js"></script>
+	<script src="app.run.js"></script>
+	<script src="services/model.service.js"></script>
+	<script src="controllers/todo.controller.js"></script>
+	<script src="services/todo.service.js"></script>
+	<script src="filters/checkdeliveryItems.filter.js"></script>
+</body>
+</html>
