@@ -45,36 +45,7 @@
 				<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> To Do List
 			</div>
 			<div class="panel-body">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Description</th>
-							<th>Done</th>
-							<th class="text-right">Commands</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="item in $ctrl.todo.items | checkedItems: $ctrl.showComlete track by $index">
-							<td>{{item.action}}</td>
-							<td><input type="checkbox" ng-model="item.done"></td>
-							<td>{{item.done? 'Yes': 'No'}}</td>
-							<td class="text-right">
-								<button
-										type="button"
-										class="btn btn-primary">
-										<span class="glyphicon glyphicon-edit" aria-hidden="true"
-											  title="Edit"></span>
-								</button>
-								<button
-										type="button"
-										class="btn btn-danger">
-										<span class="glyphicon glyphicon-trash" aria-hidden="true"
-											  title="Delete"></span>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<vi-task-list></vi-task-list>
 
 				<label>
 					<input type="checkbox" ng-model="$ctrl.showComlete">
@@ -91,5 +62,6 @@
 	<script src="controllers/todo.controller.js"></script>
 	<script src="services/todo.service.js"></script>
 	<script src="filters/checkdeliveryItems.filter.js"></script>
+	<script src="directives/task-list/task-list.directives.js"></script>
 </body>
 </html>
